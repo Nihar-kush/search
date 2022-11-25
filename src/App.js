@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import ColorList from "./ColorList";
+import DropDown from "./DropDown";
 
 function App() {
+  const [input, setInput] = useState("");
+  const [active, setActive] = useState(false);
+  const [colors, setColors] = useState([]);
+  const toggleActive = () => {
+    setActive(!active);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="mainContainer">
+        <DropDown
+          setActive={setActive}
+          colors={colors}
+          setColors={setColors}
+          toggleActive={toggleActive}
+          input={input}
+          setInput={setInput}
+        />
+        {active && (
+          <ColorList
+            active={active}
+            colors={colors}
+            setColors={setColors}
+            setInput={setInput}
+            input={input}
+          />
+        )}
+      </div>
     </div>
   );
 }
